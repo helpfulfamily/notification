@@ -4,16 +4,15 @@ $( window ).ready(function() {
 });
 
 var stompClient = null;
-
 function connect() {
-    var socket = new SockJS('http://localhost:8082/websocket');
-      stompClient = Stomp.over(socket);
+    var socket = new SockJS('https://localhost:8082/websocket');
+    stompClient = Stomp.over(socket);
 
-  stompClient.connect({}, function (frame) {
-      stompClient.subscribe('/topic/pushNotification', function (notification) {
-          $('#textArea').val(notification);
-       });
-  });
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/topic/pushNotification', function (notification) {
+            console.log(notification)
+        });
+    });
 
 }
 function sendMessage(){
