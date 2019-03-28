@@ -1,12 +1,15 @@
 package army.helpful.notificationha.message.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 public class Content extends BasicModel {
 
     private String text;
+     private Title title;
 
-    private Title title;
 
+    private boolean firstContent;
 
     public Content() {
     }
@@ -28,7 +31,17 @@ public class Content extends BasicModel {
         this.title = title;
     }
 
-    public String toString(){
-     return   this.getClass().getSimpleName();
+    public boolean isFirstContent() {
+        return firstContent;
     }
+
+    public void setFirstContent(boolean firstContent) {
+        this.firstContent = firstContent;
+    }
+
+
+    public String toString(){
+        return   this.getClass().getSimpleName();
+    }
+
 }
