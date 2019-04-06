@@ -3,10 +3,11 @@ package army.helpful.notificationha.message.consumer;
 
 import army.helpful.notificationha.actions.EnumActionStatus;
 import army.helpful.notificationha.actions.EnumActionTypes;
-import army.helpful.notificationha.message.model.Content;
 
-import army.helpful.notificationha.message.model.ContentMessage;
-import army.helpful.notificationha.message.model.TitleMessage;
+import army.helpful.notificationha.message.model.ProblemContent;
+import army.helpful.notificationha.message.model.ProblemContentMessage;
+import army.helpful.notificationha.message.model.ProblemTitleMessage;
+import army.helpful.notificationha.message.model.SolutionContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,47 +26,33 @@ public class ProsoListener
     private static final Logger logger = LoggerFactory.getLogger(ProsoListener.class);
     @Autowired
     private SimpMessagingTemplate template;
-    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'publishContent'")
-    public void publishContent(Message<Content> message) {
+    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'publishProblemContent'")
+    public void publishProblemContent(Message<ProblemContent> message) {
 
-       logger.info(" received publishContent ["+message.toString()+"] ");
+       logger.info(" received publishProblemContent ["+message.toString()+"] ");
 
 
 
        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
-                                       .setHeader(EnumActionTypes.publishContent.name()
+                                       .setHeader("publishProblemContent"
                                                      , EnumActionStatus.SUCCESS.name()).build();
 
-        this.template.convertAndSend("/topic/pushNotification", resultMessage);
+        this.template.convertAndSend("/topic/pushNotificationProblemContent", resultMessage);
 
 
     }
-    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'getAllWithAmount'")
-    public void getAllWithAmount(Message<TitleMessage> message) {
+    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'publishSolutionContent'")
+    public void publishSolutionContent(Message<SolutionContent> message) {
 
-        logger.info(" received publishContent ["+message.toString()+"] ");
+        logger.info(" received publishSolutionContent ["+message.toString()+"] ");
 
 
 
         Message resultMessage= MessageBuilder.withPayload(message.getPayload())
-                .setHeader(EnumActionTypes.getAllWithAmount.name()
+                .setHeader("publishSolutionContent"
                         , EnumActionStatus.SUCCESS.name()).build();
 
-     //   this.template.convertAndSend("/topic/pushNotification", resultMessage);
-
-    }
-    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'findByTitleWithAmount'")
-    public void findByTitleWithAmount(Message<ContentMessage> message) {
-
-        logger.info(" received publishContent ["+message.toString()+"] ");
-
-
-
-        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
-                .setHeader(EnumActionTypes.findByTitleWithAmount.name()
-                        , EnumActionStatus.SUCCESS.name()).build();
-
-       // this.template.convertAndSend("/user/queue/towhom-userdeneme", resultMessage);
+        this.template.convertAndSend("/topic/pushNotificationSolutionContent", resultMessage);
 
 
     }
