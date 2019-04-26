@@ -1,10 +1,12 @@
-package army.helpful.notificationha.message.consumer;
+package family.helpful.notification.message.consumer;
 
 
-import army.helpful.notificationha.actions.EnumActionStatus;
-import army.helpful.notificationha.actions.EnumActionTypes;
+import family.helpful.notification.actions.EnumActionStatus;
 
-import army.helpful.notificationha.message.model.*;
+
+import family.helpful.notification.message.model.ProblemContent;
+import family.helpful.notification.message.model.SolutionContent;
+import family.helpful.notification.message.model.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

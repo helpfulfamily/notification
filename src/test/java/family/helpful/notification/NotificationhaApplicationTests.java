@@ -1,4 +1,4 @@
-package army.helpful.notificationha;
+package family.helpful.notification;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

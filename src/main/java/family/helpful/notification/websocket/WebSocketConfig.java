@@ -1,4 +1,4 @@
-package army.helpful.notificationha.websocket;
+package family.helpful.notification.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

@@ -8,11 +8,11 @@
 		<version>2.1.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>army.helpful</groupId>
-	<artifactId>notificationha</artifactId>
+	<groupId>family.helpful</groupId>
+	<artifactId>notification</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>notificationha</name>
-	<description>Demo project for Spring Boot</description>
+	<name>notification</name>
+	<description>Notification System for Helpful Family</description>
 
 	<properties>
 		<java.version>1.8</java.version>

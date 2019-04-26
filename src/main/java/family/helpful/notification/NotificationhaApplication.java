@@ -1,4 +1,4 @@
-package army.helpful.notificationha;
+package family.helpful.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package army.helpful.notificationha.message.model;
+package family.helpful.notification.message.model;
 
 
 public class Transaction extends BasicModel{

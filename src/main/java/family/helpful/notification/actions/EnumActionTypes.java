@@ -1,16 +1,18 @@
-package army.helpful.notificationha.actions;
+package family.helpful.notification.actions;
 
-public enum EnumActionStatus {
+public enum EnumActionTypes {
 
-    SUCCESS("publish content action is successfull");
-
+    publishContent("publish content"),
+    findByTitleWithAmount("find contents"),
+    getAllWithAmount("load title list");
 
     String description;
-    EnumActionStatus(String description ){
+    EnumActionTypes(String description ){
 
         this.description= description;
 
     }
+
 
 
     public String getDescription() {
