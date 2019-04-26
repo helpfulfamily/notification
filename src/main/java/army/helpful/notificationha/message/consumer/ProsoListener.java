@@ -4,10 +4,7 @@ package army.helpful.notificationha.message.consumer;
 import army.helpful.notificationha.actions.EnumActionStatus;
 import army.helpful.notificationha.actions.EnumActionTypes;
 
-import army.helpful.notificationha.message.model.ProblemContent;
-import army.helpful.notificationha.message.model.ProblemContentMessage;
-import army.helpful.notificationha.message.model.ProblemTitleMessage;
-import army.helpful.notificationha.message.model.SolutionContent;
+import army.helpful.notificationha.message.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +53,19 @@ public class ProsoListener
 
 
     }
+    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'sendThankCoin'")
+    public void sendThankCoin(Message<Transaction> message) {
 
+        logger.info(" received sendThankCoin ["+message.toString()+"] ");
+
+
+
+        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
+                .setHeader("sendThankCoin"
+                        , EnumActionStatus.SUCCESS.name()).build();
+
+        this.template.convertAndSend("/topic/sendThankCoin", resultMessage);
+
+
+    }
 }
