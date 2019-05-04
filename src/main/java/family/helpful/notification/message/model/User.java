@@ -19,12 +19,9 @@ public class User extends BasicModel {
     private List<ProblemContent> problemContents = new ArrayList<>();
 
     private List<SolutionContent> solutionContents = new ArrayList<>();
-
     private List<ProblemTitle> problemTitles = new ArrayList<>();
-
     private List<SolutionTitle> solutionTitles = new ArrayList<>();
-
-    public String toString(){
+   public String toString(){
 
         return   this.getClass().getSimpleName();
     }

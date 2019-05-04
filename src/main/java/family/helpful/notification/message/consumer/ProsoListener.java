@@ -70,4 +70,19 @@ public class ProsoListener
 
 
     }
+    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'sendObservationRequestSignal'")
+    public void sendObservationRequestSignal(Message<Transaction> message) {
+
+        logger.info(" received sendObservationRequestSignal ["+message.toString()+"] ");
+
+
+
+        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
+                .setHeader("sendObservationRequestSignal"
+                        , EnumActionStatus.SUCCESS.name()).build();
+
+        this.template.convertAndSend("/topic/sendObservationRequestSignal", resultMessage);
+
+
+    }
 }

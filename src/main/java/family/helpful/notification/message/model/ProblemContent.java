@@ -1,23 +1,15 @@
 package family.helpful.notification.message.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
-
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 public class ProblemContent extends BasicModel  {
 
     private String text;
 
 
-    @JsonIgnoreProperties("problemContents")
 
     private ProblemTitle problemTitle;
 
 
-    @JsonIgnoreProperties("problemContents")
     private User user;
 
     private boolean firstContent;
