@@ -76,13 +76,14 @@ public class ProsoListener
 
         logger.info(" received sendObservationRequestSignal ["+message.toString()+"] ");
 
+        ObservationRequestSignal observationRequestSignal= message.getPayload();
 
 
-        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
+        Message resultMessage= MessageBuilder.withPayload(observationRequestSignal)
                 .setHeader("sendObservationRequestSignal"
                         , EnumActionStatus.SUCCESS.name()).build();
 
-        this.template.convertAndSend("/topic/sendObservationRequestSignal", resultMessage);
+        this.template.convertAndSendToUser(observationRequestSignal.getObserverUsername(),"/queue/sendObservationRequestSignal", resultMessage);
 
 
     }
