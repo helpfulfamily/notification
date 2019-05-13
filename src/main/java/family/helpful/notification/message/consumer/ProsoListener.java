@@ -4,6 +4,7 @@ package family.helpful.notification.message.consumer;
 import family.helpful.notification.actions.EnumActionStatus;
 
 
+import family.helpful.notification.message.model.ObservationRequestSignal;
 import family.helpful.notification.message.model.ProblemContent;
 import family.helpful.notification.message.model.SolutionContent;
 import family.helpful.notification.message.model.Transaction;
@@ -71,7 +72,7 @@ public class ProsoListener
 
     }
     @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'sendObservationRequestSignal'")
-    public void sendObservationRequestSignal(Message<Transaction> message) {
+    public void sendObservationRequestSignal(Message<ObservationRequestSignal> message) {
 
         logger.info(" received sendObservationRequestSignal ["+message.toString()+"] ");
 
