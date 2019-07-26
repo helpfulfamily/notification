@@ -31,19 +31,23 @@ public class OnlineUserListener
     private static HashMap <String, List<User>> onlineUserMap= new HashMap<>();
     private static long id=3;
 
-    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'userLoggedIn'")
+    @StreamListener(target = Sink.INPUT,  condition = "headers['action'] == 'userChannelJoinPart'")
     public void userLoggedIn(Message<UserJoinMessage> userJoinMessageMessageEnv) {
         UserJoinMessage userJoinMessage= userJoinMessageMessageEnv.getPayload();
 
-        logger.info(" received userLoggedIn message ["+userJoinMessage.getUser().username );
+        logger.info(" received userChannelJoinPart message "+userJoinMessage.getUser().username
+                                                            +"," + userJoinMessage.getChannelName()
+                                                            +","+ userJoinMessage.getActionType());
 
         User user= userJoinMessage.getUser();
 
-        user.setId(++id);
+        String actionType= userJoinMessage.getActionType();
+
 
         String channelName= userJoinMessage.getChannelName();
 
         List<User> onlineUserList= onlineUserMap.get(channelName);
+
         if(onlineUserList==null){
             onlineUserList= new ArrayList();
 
@@ -52,18 +56,26 @@ public class OnlineUserListener
                 .filter(filterUserInternal -> user.getUsername().equals(filterUserInternal.getUsername()))
                 .findAny()
                 .orElse(null);
-        if(filterUser==null){
+
+
+        if(filterUser==null && actionType.equals("join")){
+
+
             onlineUserList.add(user);
+            onlineUserMap.put(channelName, onlineUserList);
+
+        }else if(filterUser!=null && actionType.equals("part")){
+                onlineUserList.removeIf(filterUserInternal -> user.getUsername().equals(filterUserInternal.getUsername()));
 
         }
 
-        onlineUserMap.put(channelName, onlineUserList);
+
 
         Message resultMessage= MessageBuilder.withPayload(onlineUserList)
-                .setHeader("userLoggedIn"
+                .setHeader("userChannelJoinPart"
                         , EnumActionStatus.SUCCESS.name()).build();
 
-        this.template.convertAndSend("/topic/pushNotificationUserLoggedIn", resultMessage);
+        this.template.convertAndSend("/topic/pushNotificationUserChannelJoinPart", resultMessage);
 
 
     }
