@@ -61,13 +61,12 @@ public class ProsoListener
 
         logger.info(" received sendThankCoin ["+message.toString()+"] ");
 
+        Transaction transaction= message.getPayload();
+        String objectType= transaction.getObjectType();
 
 
-        Message resultMessage= MessageBuilder.withPayload(message.getPayload())
-                .setHeader("sendThankCoin"
-                        , EnumActionStatus.SUCCESS.name()).build();
 
-        this.template.convertAndSend("/topic/sendThankCoin", resultMessage);
+        this.template.convertAndSend("/topic/sendThankCoin"+objectType, transaction);
 
 
     }
