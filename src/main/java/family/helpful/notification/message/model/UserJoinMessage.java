@@ -1,5 +1,8 @@
 package family.helpful.notification.message.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class UserJoinMessage {
     private User user;
     private   String channelName;
@@ -28,4 +31,20 @@ public class UserJoinMessage {
     public void setActionType(String actionType) {
         this.actionType = actionType;
     }
+
+    @Override
+    public String toString() {
+          ObjectMapper mapper = new ObjectMapper();
+
+          String returnValue="";
+
+        try {
+            returnValue= mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return returnValue;
+    }
+
 }

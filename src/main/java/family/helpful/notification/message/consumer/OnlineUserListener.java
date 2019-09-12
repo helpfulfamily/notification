@@ -2,8 +2,6 @@ package family.helpful.notification.message.consumer;
 
 
 import family.helpful.notification.actions.EnumActionStatus;
-import family.helpful.notification.message.model.Channel;
-import family.helpful.notification.message.model.ChannelContent;
 import family.helpful.notification.message.model.User;
 import family.helpful.notification.message.model.UserJoinMessage;
 import org.slf4j.Logger;
@@ -35,9 +33,7 @@ public class OnlineUserListener
     public void userLoggedIn(Message<UserJoinMessage> userJoinMessageMessageEnv) {
         UserJoinMessage userJoinMessage= userJoinMessageMessageEnv.getPayload();
 
-        logger.info(" received userChannelJoinPart message "+userJoinMessage.getUser().username
-                                                            +"," + userJoinMessage.getChannelName()
-                                                            +","+ userJoinMessage.getActionType());
+        logger.info(" received userChannelJoinPart message {} " + userJoinMessage);
 
         User user= userJoinMessage.getUser();
 
@@ -76,6 +72,9 @@ public class OnlineUserListener
                         , EnumActionStatus.SUCCESS.name()).build();
 
         this.template.convertAndSend("/topic/pushNotificationUserChannelJoinPart", resultMessage);
+
+        logger.info(" Dispatched via WebSocket userChannelJoinPart message {} " + onlineUserList);
+
 
 
     }
